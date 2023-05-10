@@ -50,10 +50,11 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var result = await _dataAccessLayer.GetUser(requestModel);
-            return result.IsT0
-                ? StatusCode(200, result.AsT0)
-                : StatusCode(400, $"No user with such id: {requestModel.UserId}");
+            return (await _dataAccessLayer.GetUser(requestModel))
+                .Match(
+                    user => StatusCode(200, user),
+                    notFound => StatusCode(400, $"No user with such id: {requestModel.UserId}")
+                );
         }
         catch (Exception e)
         {
