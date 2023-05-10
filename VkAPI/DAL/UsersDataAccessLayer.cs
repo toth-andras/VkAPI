@@ -61,14 +61,22 @@ public class UsersDataAccessLayer : IUsersDataAccessLayer
         }
 
         // Вариант улучшения: нормализация базы данных, не сохранять лишние UserGroup и UserState.
-        // К сожадению, я не успел это сделать.
+        // К сожалению, я не успел это сделать.
         var user = new User(
             requestModel.Login,
             requestModel.Password,
             DateTime.UtcNow)
         {
-            UserGroup = new UserGroup() {Description = "Description", Code = requestModel.UserGroupCode},
-            UserState = new UserState() {Description = "Description", Code = UserStateCode.Active}
+            UserGroup = new UserGroup()
+            {
+                Description = requestModel.UserGroupDescription,
+                Code = requestModel.UserGroupCode
+            },
+            UserState = new UserState()
+            {
+                Description = requestModel.UserStateDescription,
+                Code = UserStateCode.Active
+            }
         };
 
         await context.AddUser(user);
