@@ -57,6 +57,7 @@ public class UsersDataAccessLayer : IUsersDataAccessLayer
         // Проверка на создания второго/последующего администратора.
         if (requestModel.UserGroupCode == UserGroupCode.Admin && context.HasAdmin())
         {
+            _loginsInProcess.Remove(requestModel.Login, out _);
             return MultipleAdminError.Empty;
         }
 
