@@ -4,6 +4,9 @@ using DAL;
 using Models.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 
+/// <summary>
+/// Контроллер для работы с данными о пользователях.
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class UsersController : ControllerBase
@@ -17,6 +20,10 @@ public class UsersController : ControllerBase
         _dataAccessLayer = accessLayer;
     }
 
+    /// <summary>
+    /// Получить всех пользователей из базы данных.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("GetUsers")]
     [Produces("application/json")]
     public async Task<IActionResult> GetUsers()
@@ -32,6 +39,11 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Получить из базы данных конкретного пользователя.
+    /// </summary>
+    /// <param name="requestModel">Модель с данными запроса информации о конкретном пользователе.</param>
+    /// <returns>Ответ, содержащий данные о пользователе или ошибке.</returns>
     [HttpPost("GetUser")]
     [Produces("application/json")]
     public async Task<IActionResult> GetUser([FromBody] GetUserRequestModel requestModel)
@@ -50,6 +62,11 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Добавить пользователя в базу данных.
+    /// </summary>
+    /// <param name="requestModel">Модель с данными запроса на добавление пользователя.</param>
+    /// <returns>Ответ, содержащий сообщение об успехе или данные об ошибке.</returns>
     [HttpPost("AddUser")]
     [Produces("application/json")]
     public async Task<IActionResult> AddUser([FromBody] AddUserRequestModel requestModel)
@@ -69,9 +86,14 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Удалить пользователя из базы данных.
+    /// </summary>
+    /// <param name="requestModel">Модель с данными запроса на удаление пользователя.</param>
+    /// <returns>Ответ, содержащий сообщение об успехе или данные об ошибке.</returns>
     [HttpPost("RemoveUser")]
     [Produces("application/json")]
-    public async Task<IActionResult> RemoveUser(RemoveUserRequestModel requestModel)
+    public async Task<IActionResult> RemoveUser([FromBody] RemoveUserRequestModel requestModel)
     {
         try
         {
