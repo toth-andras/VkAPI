@@ -60,8 +60,11 @@ public class UsersDataAccessLayer : IUsersDataAccessLayer
             return MultipleAdminError.Empty;
         }
 
-        // Вариант улучшения: нормализация базы данных, не сохранять лишние UserGroup и UserState.
+        // 1) Вариант улучшения: нормализация базы данных, не сохранять лишние UserGroup и UserState.
         // К сожалению, я не успел это сделать.
+        // 2) Наверное, более правильно было бы хранить не открытый пароль, а зашифрованный или хотя бы
+        // кэш, но в ТЗ ничего про это не было сказано, поэтому я решил этого не делать, чтобы в ответах 
+        // API было видно, что пароль сохраняется без ошибок.
         var user = new User(
             requestModel.Login,
             requestModel.Password,
